@@ -1,1 +1,4 @@
 # DEVTINDER
+
+- TailwindCSS
+- DAisyUI
