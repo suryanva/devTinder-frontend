@@ -6,6 +6,7 @@
 - Axios {withCredentials:true}
 - CORS in Backend
 - Redux ToolKit
+- React Toastify
 
 Body
 -NavBar

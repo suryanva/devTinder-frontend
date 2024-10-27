@@ -39,7 +39,7 @@ const Navbar = () => {
                   <a>Settings</a>
                 </li>
                 <li>
-                  <a>Logout</a>
+                  <Link to="/logout">Logout</Link>
                 </li>
               </ul>
             </div>

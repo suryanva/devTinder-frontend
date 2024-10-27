@@ -3,6 +3,7 @@ import axios from "axios";
 import { useDispatch } from "react-redux";
 import { addUser } from "../utils/redux/userSlice";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const Login = () => {
   const [email, setEmail] = useState("mason.williams@example.com");
@@ -13,22 +14,33 @@ const Login = () => {
   const handleLogin = async () => {
     // Make API call to login with email and password
     // On successful login, redirect to profile page
+    const loadingToast = toast.loading("Logging in...");
     try {
-      axios
-        .post(
-          `${import.meta.env.VITE_PUBLIC_URL}/api/v1/users/login`,
-          {
-            email,
-            password,
-          },
-          { withCredentials: true }
-        )
-        .then((res) => {
-          dispatch(addUser(res.data));
-          navigate("/");
-        });
+      const res = await axios.post(
+        `${import.meta.env.VITE_PUBLIC_URL}/api/v1/users/login`,
+        {
+          email,
+          password,
+        },
+        { withCredentials: true }
+      );
+      dispatch(addUser(res.data));
+      toast.update(loadingToast, {
+        render: "Successfully logged in!",
+        type: "success",
+        isLoading: false,
+        autoClose: 2000,
+      });
+      navigate("/");
     } catch (error) {
       console.error(error);
+      toast.update(loadingToast, {
+        render:
+          error.response?.data?.error || "Login failed. Please try again.",
+        type: "error",
+        isLoading: false,
+        autoClose: 3000,
+      });
     }
   };
 
