@@ -1,22 +1,32 @@
 import { useState } from "react";
 import axios from "axios";
+import { useDispatch } from "react-redux";
+import { addUser } from "../utils/redux/userSlice";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("mason.williams@example.com");
+  const [password, setPassword] = useState("masonpassword321");
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleLogin = async () => {
     // Make API call to login with email and password
     // On successful login, redirect to profile page
     try {
-      axios.post(
-        "http://localhost:3000/api/v1/users/login",
-        {
-          email,
-          password,
-        },
-        { withCredentials: true }
-      );
+      axios
+        .post(
+          `${import.meta.env.VITE_PUBLIC_URL}/api/v1/users/login`,
+          {
+            email,
+            password,
+          },
+          { withCredentials: true }
+        )
+        .then((res) => {
+          dispatch(addUser(res.data));
+          navigate("/");
+        });
     } catch (error) {
       console.error(error);
     }

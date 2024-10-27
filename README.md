@@ -5,6 +5,7 @@
 - React-Router-DOM
 - Axios {withCredentials:true}
 - CORS in Backend
+- Redux ToolKit
 
 Body
 -NavBar
