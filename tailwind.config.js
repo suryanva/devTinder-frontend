@@ -7,4 +7,8 @@ export default {
     extend: {},
   },
   plugins: [daisyui],
+  daisyui: {
+    themes: ["synthwave"],
+  },
+  darkMode: ["class", '[data-theme="night"]'],
 };
