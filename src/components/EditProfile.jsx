@@ -5,10 +5,10 @@ import { addUser, removeUser } from "../utils/redux/userSlice";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import UserCard from "./UserCard";
 
 const EditProfile = () => {
   const user = useSelector((store) => store?.user?.data);
-  console.log(user);
   const [firstName, setFirstName] = useState(user?.firstName);
   const [lastName, setLastName] = useState(user?.lastName);
   const [photoUrl, setPhotoUrl] = useState(user?.photoUrl);
@@ -34,8 +34,8 @@ const EditProfile = () => {
 
   const saveProfile = async () => {
     //Clear Errors
+    const loadingToast = toast.loading("Updating Profile...");
     try {
-      const loadingToast = toast.loading("Updating Profile...");
       const res = await axios.patch(
         `${import.meta.env.VITE_PUBLIC_URL}/api/v1/users/updateUser`,
         {
@@ -64,7 +64,7 @@ const EditProfile = () => {
       console.log(error);
       toast.update(loadingToast, {
         render:
-          error.response?.data?.error || "Update failed. Please try again.",
+          error?.response?.data?.error || "Update failed. Please try again.",
         type: "error",
         isLoading: false,
         autoClose: 2000,
@@ -156,6 +156,9 @@ const EditProfile = () => {
               </div>
             </div>
           </div>
+          <UserCard
+            user={{ firstName, lastName, photoUrl, age, gender, about }}
+          />
         </div>
       </>
     )
