@@ -31,7 +31,7 @@ const UserCard = ({ user, disabled }) => {
             <button className={`btn btn-primary ${disabled ? "hidden" : ""}`}>
               Ignore
             </button>
-            <button className={`btn btn-primary ${disabled ? "hidden" : ""}`}>
+            <button className={`btn btn-secondary ${disabled ? "hidden" : ""}`}>
               Send Request
             </button>
           </div>

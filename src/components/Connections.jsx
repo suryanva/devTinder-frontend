@@ -39,38 +39,13 @@ const Connections = () => {
   return (
     <>
       <h1 className="text-2xl font-bold text-center my-4">Connections</h1>
-      <div className="mx-auto relative w-1/2">
-        {/* Container with horizontal scroll */}
-        <div className="w-full overflow-x-auto pb-4">
-          {/* Inner flex container for items */}
-          <div className="flex gap-4 min-w-max px-4">
-            {connections.map((item) => (
-              <div key={item._id} className="flex-none w-64 h-auto">
-                <UserCard user={item} disabled={true} />
-              </div>
-            ))}
-          </div>
-        </div>
 
-        {/* Optional scroll buttons */}
-        <button
-          onClick={() => {
-            const container = document.querySelector(".overflow-x-auto");
-            container.scrollBy({ left: -200, behavior: "smooth" });
-          }}
-          className="absolute left-0 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white p-2 rounded-full shadow-lg"
-        >
-          ←
-        </button>
-        <button
-          onClick={() => {
-            const container = document.querySelector(".overflow-x-auto");
-            container.scrollBy({ left: 200, behavior: "smooth" });
-          }}
-          className="absolute right-0 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white p-2 rounded-full shadow-lg"
-        >
-          →
-        </button>
+      <div className="flex overflow-x-scroll space-x-4 snap-x w-full p-4 ">
+        {connections.map((item) => (
+          <div key={item._id} className="shrink-0 snap-start">
+            <UserCard user={item} disabled={true} />
+          </div>
+        ))}
       </div>
     </>
   );
