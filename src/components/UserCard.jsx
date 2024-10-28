@@ -1,11 +1,11 @@
-const UserCard = ({ user }) => {
+const UserCard = ({ user, disabled }) => {
   const {
-    about,
+    about = "N/A",
     age,
     firstName,
     lastName = "",
     photoUrl,
-    gender = "N/A",
+    gender,
     skills,
     _id,
   } = user;
@@ -28,8 +28,12 @@ const UserCard = ({ user }) => {
             </div>
           )}
           <div className="card-actions justify-around">
-            <button className="btn btn-primary">Ignore</button>
-            <button className="btn btn-secondary">Send Request</button>
+            <button className={`btn btn-primary ${disabled ? "hidden" : ""}`}>
+              Ignore
+            </button>
+            <button className={`btn btn-primary ${disabled ? "hidden" : ""}`}>
+              Send Request
+            </button>
           </div>
         </div>
       </div>

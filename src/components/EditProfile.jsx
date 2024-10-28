@@ -158,6 +158,7 @@ const EditProfile = () => {
           </div>
           <UserCard
             user={{ firstName, lastName, photoUrl, age, gender, about }}
+            disabled={true}
           />
         </div>
       </>

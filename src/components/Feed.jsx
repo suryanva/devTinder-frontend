@@ -29,7 +29,7 @@ const Feed = () => {
 
   return (
     <div className=" flex justify-center mt-16">
-      {feed && <UserCard user={feed[0]} />}
+      {feed && <UserCard user={feed[0]} disabled={false} />}
     </div>
   );
 };
