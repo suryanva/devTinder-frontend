@@ -12,6 +12,7 @@ import EditProfile from "./components/EditProfile";
 import Connections from "./components/Connections";
 import Requests from "./components/Requests";
 import Error from "./components/Error";
+import Signup from "./components/SignUp";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
         <BrowserRouter basename="/">
           <Routes>
             <Route path="/login" element={<Login />} />
+            <Route path="/sign-up" element={<Signup />} />
             <Route path="/" element={<Body />}>
               <Route path="/" element={<Feed />} />
               <Route path="/profile" element={<Profile />} />

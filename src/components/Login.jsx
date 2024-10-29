@@ -5,12 +5,10 @@ import { addUser } from "../utils/redux/userSlice";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import SignUp from "./SignUp";
-import { useEffect } from "react";
 
 const Login = () => {
   const [email, setEmail] = useState("mason.williams@example.com");
   const [password, setPassword] = useState("masonpassword321");
-  const [loginStatus, setLoginStatus] = useState(true);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -47,11 +45,7 @@ const Login = () => {
     }
   };
 
-  useEffect(() => {
-    setLoginStatus(true);
-  }, []);
-
-  return loginStatus ? (
+  return (
     <div className="min-h-dvh flex justify-center items-center">
       <div className="card bg-base-300 w-96 shadow-xl">
         <div className="card-body">
@@ -87,7 +81,7 @@ const Login = () => {
           </div>
           <span className="mx-auto mt-2">Not a User? Register below</span>
           <button
-            onClick={() => setLoginStatus(false)}
+            onClick={() => navigate("/sign-up")}
             className="btn btn-secondary"
           >
             Sign Up
@@ -95,8 +89,6 @@ const Login = () => {
         </div>
       </div>
     </div>
-  ) : (
-    <SignUp />
   );
 };
 
