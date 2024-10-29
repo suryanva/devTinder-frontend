@@ -4,13 +4,13 @@ import axios from "axios";
 import { useSelector } from "react-redux";
 import { useEffect } from "react";
 import UserCard from "./UserCard.jsx";
+import { useState } from "react";
 
 const Feed = () => {
   const dispatch = useDispatch();
   const feed = useSelector((store) => store?.feed?.data);
-
   const getFeed = async () => {
-    if (feed) return; // If feed already loaded, skip API call
+    // If feed already loaded, skip API call
     try {
       const response = await axios.get(
         `${import.meta.env.VITE_PUBLIC_URL}/api/v1/users/getFeed`,
@@ -27,10 +27,13 @@ const Feed = () => {
     getFeed();
   }, []);
 
-  if (feed && feed.length === 0) {
+  if (!feed || feed.length === 0) {
     return (
-      <div className="flex justify-center mt-16">
+      <div className="h-dvh flex flex-col justify-center items-center mx-auto w-1/2">
         <h1 className="text-2xl">No users to show</h1>
+        <button onClick={getFeed} className=" btn btn-primary p-4 m-2">
+          Get More Users
+        </button>
       </div>
     );
   }

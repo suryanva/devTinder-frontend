@@ -34,7 +34,7 @@ const Requests = () => {
   }
 
   return (
-    <>
+    <div>
       <h1 className="text-2xl font-bold text-center my-4">Requests</h1>
 
       <div className="flex gap-4 min-w-max px-4">
@@ -50,7 +50,7 @@ const Requests = () => {
       </div>
 
       {/* {console.log(requests[0]._id)} */}
-    </>
+    </div>
   );
 };
 
