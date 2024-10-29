@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const Signup = () => {
   const [formData, setFormData] = useState({
@@ -13,6 +13,7 @@ const Signup = () => {
     gender: "",
     skills: "",
   });
+  const route = useNavigate();
 
   const [errors, setErrors] = useState({});
   const [isLoading, setIsLoading] = useState(false);
@@ -33,6 +34,10 @@ const Signup = () => {
     if (!hasSpecialChar) errors.push("Include at least one special character");
 
     return errors;
+  };
+
+  const navigate = () => {
+    route("/login");
   };
 
   const validateForm = () => {
@@ -99,29 +104,26 @@ const Signup = () => {
       };
       delete formattedData.confirmPassword;
 
-      await axios
-        .post(
-          `${import.meta.env.VITE_PUBLIC_URL}/api/v1/users/signUp`,
-          formattedData,
-          { withCredentials: true }
-        )
-        .then((response) => {
-          console.log(response.data);
-          setSubmitStatus({
-            type: "success",
-            message: "Account created successfully!",
-          });
-          setFormData({
-            firstName: "",
-            lastName: "",
-            email: "",
-            password: "",
-            confirmPassword: "",
-            age: "",
-            gender: "",
-            skills: "",
-          });
-        });
+      await axios.post(
+        `${import.meta.env.VITE_PUBLIC_URL}/api/v1/users/signUp`,
+        formattedData,
+        { withCredentials: true }
+      );
+
+      setSubmitStatus({
+        type: "success",
+        message: "Account created successfully!",
+      });
+      setFormData({
+        firstName: "",
+        lastName: "",
+        email: "",
+        password: "",
+        confirmPassword: "",
+        age: "",
+        gender: "",
+        skills: "",
+      });
     } catch (error) {
       setSubmitStatus({
         type: "error",
@@ -331,8 +333,8 @@ const Signup = () => {
           >
             {isLoading ? "Creating Account..." : "Sign Up"}
           </button>
-          <button className="ml-4 btn btn-secondary w-1/2 ">
-            <Link to="/login">Back to Login</Link>
+          <button className="ml-4 btn btn-secondary w-1/2 " onClick={navigate}>
+            Back to Login
           </button>
         </form>
       </div>
