@@ -27,9 +27,8 @@ function App() {
               <Route path="/edit-profile" element={<EditProfile />} />
               <Route path="/connections" element={<Connections />} />
               <Route path="/requests" element={<Requests />} />
-              <Route path="*" element={<Error />} /> // 404 page for unmatched
-              routes
             </Route>
+            <Route path="*" element={<Error />} /> // 404 page for unmatched
           </Routes>
         </BrowserRouter>
         <ToastContainer
