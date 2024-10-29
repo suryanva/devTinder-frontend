@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
 
 const Signup = () => {
   const [formData, setFormData] = useState({
@@ -13,7 +12,6 @@ const Signup = () => {
     gender: "",
     skills: "",
   });
-  const navigate = useNavigate();
 
   const [errors, setErrors] = useState({});
   const [isLoading, setIsLoading] = useState(false);
@@ -329,13 +327,11 @@ const Signup = () => {
           >
             {isLoading ? "Creating Account..." : "Sign Up"}
           </button>
-          <button
-            type="button"
-            className="ml-4 btn btn-secondary w-1/2 "
-            onClick={() => navigate("/login")}
-          >
-            Back to Login
-          </button>
+          <a href="/login">
+            <button type="button" className="ml-4 btn btn-secondary w-1/2 ">
+              Back to Login
+            </button>
+          </a>
         </form>
       </div>
     </div>
