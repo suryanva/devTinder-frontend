@@ -331,7 +331,7 @@ const Signup = () => {
             {isLoading ? "Creating Account..." : "Sign Up"}
           </button>
           <button className="ml-4 btn btn-secondary w-1/2 ">
-            <a href="/login">Back to Login</a>
+            <Link to="/login">Back to Login</Link>
           </button>
         </form>
       </div>
