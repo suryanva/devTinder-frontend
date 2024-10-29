@@ -4,7 +4,6 @@ import axios from "axios";
 import { useSelector } from "react-redux";
 import { useEffect } from "react";
 import UserCard from "./UserCard.jsx";
-import { useState } from "react";
 
 const Feed = () => {
   const dispatch = useDispatch();
