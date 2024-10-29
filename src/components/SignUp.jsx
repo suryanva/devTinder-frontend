@@ -13,7 +13,7 @@ const Signup = () => {
     gender: "",
     skills: "",
   });
-  const route = useNavigate();
+  const navigate = useNavigate();
 
   const [errors, setErrors] = useState({});
   const [isLoading, setIsLoading] = useState(false);
@@ -34,10 +34,6 @@ const Signup = () => {
     if (!hasSpecialChar) errors.push("Include at least one special character");
 
     return errors;
-  };
-
-  const navigate = () => {
-    route("/login");
   };
 
   const validateForm = () => {
@@ -333,7 +329,11 @@ const Signup = () => {
           >
             {isLoading ? "Creating Account..." : "Sign Up"}
           </button>
-          <button className="ml-4 btn btn-secondary w-1/2 " onClick={navigate}>
+          <button
+            type="button"
+            className="ml-4 btn btn-secondary w-1/2 "
+            onClick={() => navigate("/login")}
+          >
             Back to Login
           </button>
         </form>
