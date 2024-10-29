@@ -11,6 +11,7 @@ import "react-toastify/dist/ReactToastify.css";
 import EditProfile from "./components/EditProfile";
 import Connections from "./components/Connections";
 import Requests from "./components/Requests";
+import Error from "./components/Error";
 
 function App() {
   return (
@@ -26,6 +27,8 @@ function App() {
               <Route path="/edit-profile" element={<EditProfile />} />
               <Route path="/connections" element={<Connections />} />
               <Route path="/requests" element={<Requests />} />
+              <Route path="*" element={<Error />} /> // 404 page for unmatched
+              routes
             </Route>
           </Routes>
         </BrowserRouter>
