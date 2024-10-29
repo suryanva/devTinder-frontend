@@ -19,9 +19,9 @@ function App() {
       <Provider store={appStore}>
         <BrowserRouter basename="/">
           <Routes>
+            <Route path="/login" element={<Login />} />
             <Route path="/" element={<Body />}>
               <Route path="/" element={<Feed />} />
-              <Route path="/login" element={<Login />} />
               <Route path="/profile" element={<Profile />} />
               <Route path="/logout" element={<Logout />} />
               <Route path="/edit-profile" element={<EditProfile />} />
