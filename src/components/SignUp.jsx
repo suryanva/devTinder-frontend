@@ -132,7 +132,7 @@ const Signup = () => {
   };
 
   return (
-    <div className="min-h-screen bg-base-200 py-8">
+    <div className="min-h-screen bg-base-200 py-8 text-center">
       <div className="max-w-md mx-auto bg-base-100 rounded-lg shadow-xl p-6">
         <h2 className="text-2xl font-bold text-center mb-6">Create Account</h2>
 
@@ -329,11 +329,10 @@ const Signup = () => {
           >
             {isLoading ? "Creating Account..." : "Sign Up"}
           </button>
-
           <button
             type="button"
-            onClick={() => navigate()}
-            className="ml-4 btn btn-secondary w-1/2 "
+            onClick={() => navigate("/login")}
+            className="ml-4 btn btn-secondary w-1/2 mx-auto text-center "
           >
             Back to Login
           </button>
