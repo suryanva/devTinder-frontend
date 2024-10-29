@@ -27,9 +27,17 @@ const Feed = () => {
     getFeed();
   }, []);
 
+  if (feed && feed.length === 0) {
+    return (
+      <div className="flex justify-center mt-16">
+        <h1 className="text-2xl">No users to show</h1>
+      </div>
+    );
+  }
+
   return (
     <div className=" flex justify-center mt-16">
-      {feed && <UserCard user={feed[0]} disabled={false} />}
+      <UserCard disabled={false} user={feed[0]} />
     </div>
   );
 };
