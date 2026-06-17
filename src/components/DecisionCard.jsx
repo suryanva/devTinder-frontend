@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import { removeRequests } from "../utils/redux/requestsSlice";
+import { toast } from "react-toastify";
 
 const DecisionCard = ({ user, requestId }) => {
   const { age, firstName, lastName = "", photoUrl, gender, skills } = user || {};
@@ -8,24 +9,18 @@ const DecisionCard = ({ user, requestId }) => {
 
   const reviewRequests = async (status, _id) => {
     try {
-      await axios
-        .post(
-          `${
-            import.meta.env.VITE_PUBLIC_URL
-          }/api/v1/connections/review/${status}/${_id}`,
-          {},
-          {
-            withCredentials: true,
-          }
-        )
-        .then((response) => {
-          if (response.status === 200) {
-            console.log(response?.data?.message);
-            dispatch(removeRequests(_id));
-          }
-        });
+      const response = await axios.post(
+        `${import.meta.env.VITE_PUBLIC_URL}/api/v1/connections/review/${status}/${_id}`,
+        {},
+        { withCredentials: true }
+      );
+      if (response.status === 200) {
+        console.log(response?.data?.message);
+        dispatch(removeRequests(_id));
+      }
     } catch (error) {
       console.error(error);
+      toast.error(error?.response?.data?.error || "Failed to update request");
     }
   };
   if (!user) return null;

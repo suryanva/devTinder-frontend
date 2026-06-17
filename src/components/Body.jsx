@@ -23,8 +23,8 @@ const Body = () => {
       dispatch(addUser(response.data));
     } catch (error) {
       // If user is not authenticated, redirect to login page
-      navigate("/login");
       console.error(error);
+      navigate("/login");
     }
   };
 

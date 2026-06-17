@@ -108,13 +108,18 @@ const Signup = () => {
       };
       delete formattedData.confirmPassword;
 
-      const res = await axios.post(
+      await axios.post(
         `${import.meta.env.VITE_PUBLIC_URL}/api/v1/users/signUp`,
         formattedData,
         { withCredentials: true }
       );
 
-      dispatch(addUser(res.data));
+      const loginRes = await axios.post(
+        `${import.meta.env.VITE_PUBLIC_URL}/api/v1/users/login`,
+        { email: formattedData.email, password: formattedData.password },
+        { withCredentials: true }
+      );
+      dispatch(addUser(loginRes.data));
       navigate("/");
     } catch (error) {
       setSubmitStatus({

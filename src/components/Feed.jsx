@@ -4,12 +4,13 @@ import { addFeed } from "../utils/redux/feedSlice.js";
 import axios from "axios";
 import { useSelector } from "react-redux";
 import { useEffect } from "react";
+import { toast } from "react-toastify";
 import UserCard from "./UserCard.jsx";
 
 const Feed = () => {
   const dispatch = useDispatch();
   const feed = useSelector((store) => store?.feed?.data);
-  const [feedLoading, setFeedLoading] = useState(false);
+  const [feedLoading, setFeedLoading] = useState(true);
   const getFeed = async (forceRefresh = false) => {
     if (!forceRefresh && feed) return;
     setFeedLoading(true);
@@ -21,6 +22,7 @@ const Feed = () => {
       dispatch(addFeed(response?.data));
     } catch (error) {
       console.log(error);
+      toast.error("Failed to load feed. Please try again.");
     } finally {
       setFeedLoading(false);
     }

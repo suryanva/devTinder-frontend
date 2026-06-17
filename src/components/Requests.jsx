@@ -1,28 +1,34 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import DecisionCard from "./DecisionCard";
 import { useSelector, useDispatch } from "react-redux";
 import { addRequests } from "../utils/redux/requestsSlice";
+import { toast } from "react-toastify";
 
 const Requests = () => {
   const requests = useSelector((store) => store?.requests?.data);
   const dispatch = useDispatch();
+  const [requestsLoading, setRequestsLoading] = useState(true);
 
   const getrequests = async () => {
     if (requests) return;
+    setRequestsLoading(true);
     try {
-      await axios
-        .get(
-          `${import.meta.env.VITE_PUBLIC_URL}/api/v1/users/requests/received`,
-          {
-            withCredentials: true,
-          }
-        )
-        .then((response) => {
-          dispatch(addRequests(response?.data));
-        });
+      const response = await axios.get(
+        `${import.meta.env.VITE_PUBLIC_URL}/api/v1/users/requests/received`,
+        { withCredentials: true }
+      );
+      dispatch(addRequests(response?.data));
     } catch (error) {
       console.error(error);
+      if (
+        error.response?.status !== 404 ||
+        error.response?.data?.error !== "No pending requests"
+      ) {
+        toast.error("Failed to load requests");
+      }
+    } finally {
+      setRequestsLoading(false);
     }
   };
 
@@ -31,8 +37,16 @@ const Requests = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  if (requestsLoading) {
+    return (
+      <div className="h-dvh flex flex-col justify-center items-center">
+        <span className="loading loading-spinner loading-lg"></span>
+      </div>
+    );
+  }
+
   if (!requests || requests.length === 0) {
-    return <div>No requests found</div>;
+    return <div className="h-dvh flex flex-col justify-center items-center">No requests found</div>;
   }
 
   return (
@@ -50,8 +64,6 @@ const Requests = () => {
             </div>
           ))}
       </div>
-
-      {/* {console.log(requests[0]._id)} */}
     </div>
   );
 };

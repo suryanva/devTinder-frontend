@@ -1,7 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
 import { useDispatch } from "react-redux";
-import { addUser, removeUser } from "../utils/redux/userSlice";
+import { addUser } from "../utils/redux/userSlice";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -17,20 +17,6 @@ const EditProfile = () => {
   const [about, setAbout] = useState(user?.about || "");
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
-  const updatedUserInfo = async () => {
-    try {
-      const res = await axios.get(
-        `${import.meta.env.VITE_PUBLIC_URL}/api/v1/users/profile`,
-        { withCredentials: true }
-      );
-      if (res.status === 200) {
-        dispatch(addUser(res.data));
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  };
 
   const saveProfile = async () => {
     //Clear Errors
@@ -49,8 +35,7 @@ const EditProfile = () => {
         { withCredentials: true }
       );
       if (res.status === 200) {
-        dispatch(removeUser());
-        updatedUserInfo();
+        dispatch(addUser(res.data));
 
         toast.update(loadingToast, {
           render: res?.data?.message || "Successfully Updated Profile!",

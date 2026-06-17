@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import { removeFeed } from "../utils/redux/feedSlice";
+import { toast } from "react-toastify";
 
 const UserCard = ({ user, disabled }) => {
   const {
@@ -18,21 +19,16 @@ const UserCard = ({ user, disabled }) => {
 
   const handleSendRequest = async (status, userId) => {
     try {
-      await axios
-        .post(
-          `${
-            import.meta.env.VITE_PUBLIC_URL
-          }/api/v1/connections/send/${status}/${userId}`,
-          {},
-          { withCredentials: true }
-        )
-        .then((res) => {
-          console.log(res.data);
-          // Update the state with the new connections
-          dispatch(removeFeed(userId));
-        });
+      const res = await axios.post(
+        `${import.meta.env.VITE_PUBLIC_URL}/api/v1/connections/send/${status}/${userId}`,
+        {},
+        { withCredentials: true }
+      );
+      console.log(res.data);
+      dispatch(removeFeed(userId));
     } catch (error) {
       console.error(error);
+      toast.error(error?.response?.data?.error || "Failed to send request");
     }
   };
   return (
