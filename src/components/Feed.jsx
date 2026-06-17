@@ -9,12 +9,10 @@ import UserCard from "./UserCard.jsx";
 const Feed = () => {
   const dispatch = useDispatch();
   const feed = useSelector((store) => store?.feed?.data);
-  const [feedLoading, setFeedLoading] = useState(!feed);
   const [feedError, setFeedError] = useState(null);
 
   const getFeed = async (forceRefresh = false) => {
     if (!forceRefresh && feed) return;
-    setFeedLoading(true);
     setFeedError(null);
     try {
       const response = await axios.get(
@@ -29,8 +27,6 @@ const Feed = () => {
       } else {
         setFeedError("Failed to load feed. Please try again.");
       }
-    } finally {
-      setFeedLoading(false);
     }
   };
 
@@ -39,7 +35,7 @@ const Feed = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  if (feedLoading) {
+  if (!feed && !feedError) {
     return (
       <div className="h-dvh flex flex-col justify-center items-center">
         <span className="loading loading-spinner loading-lg"></span>
