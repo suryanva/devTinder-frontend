@@ -39,15 +39,6 @@ npm run build
 npm run preview
 ```
 
-## Testing with sample credentials
-
-After registering, you can log in with these demo credentials ():
-
-| Field    | Value                    |
-| -------- | ------------------------ |
-| Email    | `rahul.dravid@gmail.com` |
-| Password | `RAHUL.dravid123`        |
-
 ## Features
 
 - **Sign Up** — Register with name, email, password, age, gender, and skills
