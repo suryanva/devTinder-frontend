@@ -2,6 +2,9 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { removeUser } from "../utils/redux/userSlice";
+import { removeFeed } from "../utils/redux/feedSlice";
+import { removeConnection } from "../utils/redux/connectionSlice";
+import { removeRequests } from "../utils/redux/requestsSlice";
 import { useEffect } from "react";
 import { toast } from "react-toastify";
 
@@ -21,6 +24,9 @@ const Logout = () => {
 
       if (response.status === 200) {
         dispatch(removeUser());
+        dispatch(removeFeed());
+        dispatch(removeConnection());
+        dispatch(removeRequests());
         navigate("/login");
         toast.update(loadingToast, {
           render: response?.data?.message,

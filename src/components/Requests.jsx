@@ -8,17 +8,18 @@ import { toast } from "react-toastify";
 const Requests = () => {
   const requests = useSelector((store) => store?.requests?.data);
   const dispatch = useDispatch();
-  const [isError, setIsError] = useState(false);
+  const [status, setStatus] = useState(requests ? "success" : "loading");
 
   const getrequests = async () => {
     if (requests) return;
-    setIsError(false);
+    setStatus("loading");
     try {
       const response = await axios.get(
         `${import.meta.env.VITE_PUBLIC_URL}/api/v1/users/requests/received`,
         { withCredentials: true }
       );
       dispatch(addRequests(response?.data));
+      setStatus("success");
     } catch (error) {
       console.error(error);
       if (
@@ -27,7 +28,7 @@ const Requests = () => {
       ) {
         toast.error("Failed to load requests");
       }
-      setIsError(true);
+      setStatus("error");
     }
   };
 
@@ -36,7 +37,7 @@ const Requests = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  if (!requests && !isError) {
+  if (status === "loading") {
     return (
       <div className="h-dvh flex flex-col justify-center items-center">
         <span className="loading loading-spinner loading-lg"></span>
