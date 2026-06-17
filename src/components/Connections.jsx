@@ -8,11 +8,11 @@ import { toast } from "react-toastify";
 const Connections = () => {
   const connections = useSelector((store) => store?.connection?.data);
   const dispatch = useDispatch();
-  const [connectionsLoading, setConnectionsLoading] = useState(true);
+  const [isError, setIsError] = useState(false);
 
   const getConnections = async () => {
     if (connections) return;
-    setConnectionsLoading(true);
+    setIsError(false);
     try {
       const response = await axios.get(
         `${import.meta.env.VITE_PUBLIC_URL}/api/v1/users/myConnections`,
@@ -22,8 +22,7 @@ const Connections = () => {
     } catch (error) {
       console.error(error);
       toast.error("Failed to load connections");
-    } finally {
-      setConnectionsLoading(false);
+      setIsError(true);
     }
   };
 
@@ -32,7 +31,7 @@ const Connections = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  if (connectionsLoading) {
+  if (!connections && !isError) {
     return (
       <div className="h-dvh flex flex-col justify-center items-center">
         <span className="loading loading-spinner loading-lg"></span>
