@@ -9,7 +9,7 @@ import UserCard from "./UserCard.jsx";
 const Feed = () => {
   const dispatch = useDispatch();
   const feed = useSelector((store) => store?.feed?.data);
-  const [feedLoading, setFeedLoading] = useState(true);
+  const [feedLoading, setFeedLoading] = useState(!feed);
   const [feedError, setFeedError] = useState(null);
 
   const getFeed = async (forceRefresh = false) => {

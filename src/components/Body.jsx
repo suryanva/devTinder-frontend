@@ -13,15 +13,11 @@ const Body = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const userData = useSelector((store) => store.user);
-  const [authLoading, setAuthLoading] = useState(true);
+  const [authLoading, setAuthLoading] = useState(!userData);
   const [authError, setAuthError] = useState(null);
 
   const fetchUser = async () => {
-    if (userData) {
-      setAuthLoading(false);
-      return;
-    }
-    setAuthLoading(true);
+    if (userData) return;
     setAuthError(null);
     try {
       const response = await axios.get(
