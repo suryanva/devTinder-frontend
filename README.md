@@ -4,14 +4,14 @@ A developer-focused networking platform — swipe, connect, and collaborate.
 
 ## Tech Stack
 
-| Frontend | Backend (not in this repo) |
-|----------|---------------------------|
-| React 18 + Vite 5 | Node.js / Express |
-| Redux Toolkit | MongoDB + Mongoose |
-| React Router v6 | JWT auth (httpOnly cookies) |
-| TailwindCSS + DaisyUI | REST API |
-| Axios | |
-| React Toastify | |
+| Frontend              | Backend (not in this repo)  |
+| --------------------- | --------------------------- |
+| React 18 + Vite 5     | Node.js / Express           |
+| Redux Toolkit         | MongoDB + Mongoose          |
+| React Router v6       | JWT auth (httpOnly cookies) |
+| TailwindCSS + DaisyUI | REST API                    |
+| Axios                 |                             |
+| React Toastify        |                             |
 
 ## Pre-requisites
 
@@ -41,14 +41,12 @@ npm run preview
 
 ## Testing with sample credentials
 
-After registering, you can log in with these demo credentials (pre-filled on the login form):
+After registering, you can log in with these demo credentials ():
 
-| Field    | Value                       |
-|----------|-----------------------------|
-| Email    | `mason.williams@example.com` |
-| Password | `masonpassword321`          |
-
-> **Note**: These credentials must first be registered via the **Sign Up** page (`/sign-up`). The backend is required — this frontend alone cannot create accounts.
+| Field    | Value                    |
+| -------- | ------------------------ |
+| Email    | `rahul.dravid@gmail.com` |
+| Password | `RAHUL.dravid123`        |
 
 ## Features
 
@@ -92,9 +90,9 @@ src/
 
 ## Environment Variables
 
-| Variable          | Description     | Example                     |
-|-------------------|-----------------|-----------------------------|
-| `VITE_PUBLIC_URL` | Backend API URL | `http://localhost:7777`     |
+| Variable          | Description     | Example                 |
+| ----------------- | --------------- | ----------------------- |
+| `VITE_PUBLIC_URL` | Backend API URL | `http://localhost:7777` |
 
 ## Deployment (Render)
 
