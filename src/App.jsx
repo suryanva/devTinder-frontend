@@ -30,7 +30,7 @@ function App() {
               <Route path="/connections" element={<Connections />} />
               <Route path="/requests" element={<Requests />} />
             </Route>
-            <Route path="*" element={<Error />} /> // 404 page for unmatched
+            <Route path="*" element={<Error />} />
           </Routes>
         </BrowserRouter>
         <ToastContainer

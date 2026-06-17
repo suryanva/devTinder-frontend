@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import { removeRequests } from "../utils/redux/requestsSlice";
 
 const DecisionCard = ({ user, requestId }) => {
-  const { age, firstName, lastName = "", photoUrl, gender, skills } = user;
+  const { age, firstName, lastName = "", photoUrl, gender, skills } = user || {};
   const dispatch = useDispatch();
 
   const reviewRequests = async (status, _id) => {
@@ -28,6 +28,7 @@ const DecisionCard = ({ user, requestId }) => {
       console.error(error);
     }
   };
+  if (!user) return null;
   return (
     <div>
       <div className="card card-side bg-base-300 shadow-xl p-2">

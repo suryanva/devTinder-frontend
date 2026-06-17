@@ -3,14 +3,13 @@ import axios from "axios";
 import UserCard from "./UserCard";
 import { useSelector, useDispatch } from "react-redux";
 import { addConnection } from "../utils/redux/connectionSlice";
-import { useRef } from "react";
 
 const Connections = () => {
   const connections = useSelector((store) => store?.connection?.data);
   const dispatch = useDispatch();
-  const scrollRef = useRef(null);
 
   const getConnections = async () => {
+    if (connections) return;
     try {
       await axios
         .get(`${import.meta.env.VITE_PUBLIC_URL}/api/v1/users/myConnections`, {
@@ -26,6 +25,7 @@ const Connections = () => {
 
   useEffect(() => {
     getConnections();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   if (!connections) {

@@ -9,7 +9,7 @@ const Error = () => {
           Page Not Found
         </h2>
         <p className="text-lg text-gray-600 mt-2">
-          Sorry, the page you are looking for doesn't exist.
+          Sorry, the page you are looking for doesn&apos;t exist.
         </p>
         <div className="mt-6">
           <Link to="/" className="btn btn-primary">

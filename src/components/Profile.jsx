@@ -30,7 +30,7 @@ const Profile = () => {
           </label>
           <textarea
             name="about"
-            placeholder={profile?.about}
+            value={profile?.about || ""}
             className="textarea textarea-bordered w-full h-24"
             disabled
           />
@@ -43,7 +43,7 @@ const Profile = () => {
             <input
               name="email"
               type="text"
-              placeholder={profile?.email}
+              value={profile?.email || ""}
               className="input input-bordered w-full"
               disabled
             />
@@ -55,7 +55,7 @@ const Profile = () => {
             <input
               name="firstName"
               type="text"
-              placeholder={profile?.firstName}
+              value={profile?.firstName || ""}
               className="input input-bordered w-full"
               disabled
             />
@@ -67,7 +67,7 @@ const Profile = () => {
             <input
               name="lastName"
               type="text"
-              placeholder={profile?.lastName}
+              value={profile?.lastName || ""}
               className="input input-bordered w-full"
               disabled
             />
@@ -79,7 +79,7 @@ const Profile = () => {
             <input
               name="age"
               type="number"
-              placeholder={profile?.age}
+              value={profile?.age || ""}
               className="input input-bordered w-full"
               disabled
             />
@@ -91,7 +91,7 @@ const Profile = () => {
             <input
               name="gender"
               type="text"
-              placeholder={profile?.gender}
+              value={profile?.gender || ""}
               className="input input-bordered w-full"
               disabled
             />
@@ -103,7 +103,7 @@ const Profile = () => {
             <input
               name="skills"
               type="text"
-              placeholder={profile?.skills?.join(", ")}
+              value={profile?.skills?.join(", ") || ""}
               className="input input-bordered w-full"
               disabled
             />

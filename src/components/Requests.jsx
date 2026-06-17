@@ -9,6 +9,7 @@ const Requests = () => {
   const dispatch = useDispatch();
 
   const getrequests = async () => {
+    if (requests) return;
     try {
       await axios
         .get(
@@ -27,6 +28,7 @@ const Requests = () => {
 
   useEffect(() => {
     getrequests();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   if (!requests || requests.length === 0) {
@@ -42,7 +44,7 @@ const Requests = () => {
           requests.map((item) => (
             <div key={item?._id} className="flex-none w-96 h-auto">
               <DecisionCard
-                user={item?.fromUserId || item?.toUserId}
+                user={typeof item?.fromUserId === "object" ? item.fromUserId : item?.toUserId}
                 requestId={item?._id}
               />
             </div>

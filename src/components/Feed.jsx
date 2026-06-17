@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { addFeed } from "../utils/redux/feedSlice.js";
 import axios from "axios";
@@ -8,29 +9,41 @@ import UserCard from "./UserCard.jsx";
 const Feed = () => {
   const dispatch = useDispatch();
   const feed = useSelector((store) => store?.feed?.data);
-  const getFeed = async () => {
-    // If feed already loaded, skip API call
+  const [feedLoading, setFeedLoading] = useState(false);
+  const getFeed = async (forceRefresh = false) => {
+    if (!forceRefresh && feed) return;
+    setFeedLoading(true);
     try {
       const response = await axios.get(
         `${import.meta.env.VITE_PUBLIC_URL}/api/v1/users/getFeed`,
         { withCredentials: true }
       );
       dispatch(addFeed(response?.data));
-      console.log(response?.data);
     } catch (error) {
       console.log(error);
+    } finally {
+      setFeedLoading(false);
     }
   };
 
   useEffect(() => {
     getFeed();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  if (feedLoading) {
+    return (
+      <div className="h-dvh flex flex-col justify-center items-center">
+        <span className="loading loading-spinner loading-lg"></span>
+      </div>
+    );
+  }
 
   if (!feed || feed.length === 0) {
     return (
       <div className="h-dvh flex flex-col justify-center items-center mx-auto w-1/2">
         <h1 className="text-2xl">No users to show</h1>
-        <button onClick={getFeed} className=" btn btn-primary p-4 m-2">
+        <button onClick={() => getFeed(true)} className=" btn btn-primary p-4 m-2">
           Get More Users
         </button>
       </div>

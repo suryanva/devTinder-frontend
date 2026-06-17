@@ -1,6 +1,8 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { addUser } from "../utils/redux/userSlice";
 
 const Signup = () => {
   const [formData, setFormData] = useState({
@@ -14,6 +16,7 @@ const Signup = () => {
     skills: "",
   });
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const [errors, setErrors] = useState({});
   const [isLoading, setIsLoading] = useState(false);
@@ -41,8 +44,8 @@ const Signup = () => {
 
     if (!formData.firstName.trim()) {
       newErrors.firstName = "First name is required";
-    } else if (formData.firstName.length < 4) {
-      newErrors.firstName = "First name must be at least 4 characters";
+    } else if (formData.firstName.length < 2) {
+      newErrors.firstName = "First name must be at least 2 characters";
     }
 
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -52,9 +55,11 @@ const Signup = () => {
       newErrors.email = "Please enter a valid email";
     }
 
-    const age = parseInt(formData.age);
-    if (age < 18 || age > 99) {
-      newErrors.age = "Age must be between 18 and 99";
+    if (formData.age) {
+      const age = parseInt(formData.age);
+      if (isNaN(age) || age < 18 || age > 99) {
+        newErrors.age = "Age must be between 18 and 99";
+      }
     }
 
     const passwordErrors = validatePassword(formData.password);
@@ -95,31 +100,22 @@ const Signup = () => {
     try {
       const formattedData = {
         ...formData,
-        skills: formData.skills.split(",").map((skill) => skill.trim()),
-        age: parseInt(formData.age),
+        skills: formData.skills
+          .split(",")
+          .map((skill) => skill.trim())
+          .filter(Boolean),
+        age: parseInt(formData.age) || undefined,
       };
       delete formattedData.confirmPassword;
 
-      await axios.post(
+      const res = await axios.post(
         `${import.meta.env.VITE_PUBLIC_URL}/api/v1/users/signUp`,
         formattedData,
         { withCredentials: true }
       );
 
-      setSubmitStatus({
-        type: "success",
-        message: "Account created successfully!",
-      });
-      setFormData({
-        firstName: "",
-        lastName: "",
-        email: "",
-        password: "",
-        confirmPassword: "",
-        age: "",
-        gender: "",
-        skills: "",
-      });
+      dispatch(addUser(res.data));
+      navigate("/");
     } catch (error) {
       setSubmitStatus({
         type: "error",

@@ -20,6 +20,8 @@ const Logout = () => {
       );
 
       if (response.status === 200) {
+        dispatch(removeUser());
+        navigate("/login");
         toast.update(loadingToast, {
           render: response?.data?.message,
           type: "success",
@@ -35,15 +37,13 @@ const Logout = () => {
         isLoading: false,
         autoClose: 2000,
       });
-    } finally {
-      dispatch(removeUser());
-      navigate("/login");
     }
   };
 
   useEffect(() => {
     handleLogout();
-  }, []); // Run only once when component mounts
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return <div>Logging out...</div>;
 };
